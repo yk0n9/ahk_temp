@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0
 
-; https://www.autohotkey.com/docs/v2/lib/Run.htm#RunAs
-full_command_line := DllCall("GetCommandLine", "str")
-if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)")) {
-    try
-    {
-        if A_IsCompiled
-            Run '*RunAs "' A_ScriptFullPath '" /restart'
-        else
-            Run '*RunAs "' A_AhkPath '" /restart "' A_ScriptFullPath '"'
-    }
-    ExitApp
+run_as_admin() {
+    if (!A_IsAdmin && !InStr(DllCall("GetCommandLine", "str"), ' /restart'))
+        try
+            if A_IsCompiled
+                Run('*RunAs "' A_ScriptFullPath '" /restart')
+            else Run('*RunAs "' A_AhkPath '" /restart "' A_ScriptFullPath '"')
+        finally ExitApp()
+    TrayTip('Script Running as Admin: ' (A_IsAdmin ? 'True' : 'False'))
 }
+run_as_admin()
 
 ; swap Ctrl and CapsLock
-; CapsLock::Ctrl
-; Ctrl::CapsLock
+CapsLock::Ctrl
+Ctrl::CapsLock
