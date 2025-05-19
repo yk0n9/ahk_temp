@@ -1,3 +1,4 @@
+#SingleInstance Force
 #Requires AutoHotkey v2.0
 
 run_as_admin() {
@@ -14,3 +15,12 @@ run_as_admin()
 ; swap Ctrl and CapsLock
 CapsLock::Ctrl
 Ctrl::CapsLock
+
+; auto click with delay
+AutoClick(key, interval) {
+    While GetKeyState(key, "P") {
+        Click
+        Sleep interval
+    }
+}
+*XButton2::AutoClick("XButton2", 50)
