@@ -16,11 +16,13 @@ run_as_admin()
 CapsLock::Ctrl
 Ctrl::CapsLock
 
-; auto click with delay
-AutoClick(key, interval) {
-    While GetKeyState(key, "P") {
-        Click
-        Sleep interval
+; auto click
+XButton2::
+{
+    loop {
+        Click()
+        if (KeyWait("XButton2", "T0.05")) {
+            break
+        }
     }
 }
-*XButton2::AutoClick("XButton2", 50)
