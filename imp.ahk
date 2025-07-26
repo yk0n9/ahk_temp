@@ -17,12 +17,11 @@ CapsLock::Ctrl
 Ctrl::CapsLock
 
 ; auto click
-XButton2::
+~XButton2::
 {
-    loop {
-        Click()
-        if (KeyWait("XButton2", "T0.05")) {
-            break
-        }
+    while GetKeyState("XButton2", "P") {
+        SendInput "{LButton down}"
+        SendInput "{LButton up}"
+        Sleep 50
     }
 }
