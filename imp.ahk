@@ -19,9 +19,15 @@ Ctrl::CapsLock
 ; auto click
 ~XButton2::
 {
-    while GetKeyState("XButton2", "P") {
-        SendInput "{LButton down}"
-        SendInput "{LButton up}"
-        Sleep 50
-    }
+    Click
+    SetTimer(RapidFire, 50)
+}
+
+~XButton2 up::
+{
+    SetTimer(RapidFire, 0)
+}
+
+RapidFire() {
+    Click
 }
